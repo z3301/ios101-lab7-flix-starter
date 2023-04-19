@@ -2,8 +2,6 @@
 //  FavoritesViewController.swift
 //  ios101-lab7-flix
 //
-//  Created by Charles Hieger on 4/18/23.
-//
 
 import UIKit
 import Nuke
