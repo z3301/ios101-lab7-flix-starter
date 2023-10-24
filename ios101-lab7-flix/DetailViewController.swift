@@ -27,6 +27,15 @@ class DetailViewController: UIViewController {
     @IBAction func didTapFavoriteButton(_ sender: UIButton) {
         // Set the button's isSelected state to the opposite of it's current value.
         sender.isSelected = !sender.isSelected
+        // 1. If the button is in the *selected* state (i.e. "favorited") -> Add movie to favorites
+        // 2. Otherwise, the button is in the *un-selected* state (i.e."un-favorited") -> Remove movie from favorites
+        if sender.isSelected {
+            // 1.
+            movie.addToFavorites()
+        } else {
+            // 2.
+            movie.removeFromFavorites()
+        }
     }
     
     
@@ -39,7 +48,24 @@ class DetailViewController: UIViewController {
 
         // Set the button's corner radius to be 1/2  it's width. This will make a square button round.
         favoriteButton.layer.cornerRadius = favoriteButton.frame.width / 2
+        
+        // Update the button's selected state based on the current movie's favorited status.
+        // 1. Get the array of favorite movies.
+        // 2. Check if the favorite movies array contains the current movie.
+        // 3. If so, the movie has been favorited -> Set the button to the *selected* state.
+        // 4. Otherwise, the movie is not-favorited -> Set the button to the *un-selected* state.
+        // ------
 
+        // 1.
+        let favorites = Movie.getMovies(forKey: Movie.favoritesKey)
+        // 2.
+        if favorites.contains(where: movie) {
+            // 3.
+            favoriteButton.isSelected = true
+        } else {
+            // 4.
+            favoriteButton.isSelected = false
+        }
 
         // MARK: Style views
         posterImageView.layer.cornerRadius = 20
@@ -110,6 +136,8 @@ class DetailViewController: UIViewController {
             // Use the Nuke library's load image function to (async) fetch and load the image from the image url.
             Nuke.loadImage(with: imageUrl, into: backdropImageView)
         }
+        
+        
     }
 
 
