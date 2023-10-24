@@ -9,7 +9,7 @@ struct MovieFeed: Decodable {
     let results: [Movie]
 }
 
-struct Movie: Codable {
+struct Movie: Codable, Equatable {
     let title: String
     let overview: String
     let posterPath: String? // Path used to create a URL to fetch the poster image
@@ -105,15 +105,27 @@ extension Movie {
     //   - The `removeAll` method iterates through each movie in the array and passes the movie into a closure where it can be used to determine if it should be removed from the array.
     // 3. If a given movie passed into the closure is equal to `self` (i.e. the movie calling the method) we want to remove it. Returning a `Bool` of `true` removes the given movie.
     // 4. Save the updated favorite movies array.
-    func removeFromFavorites() {
-        // 1.
-        var favoriteMovies = Movie.getMovies(forKey: Movie.favoritesKey)
-        // 2.
-        favoriteMovies.removeAll { movie in
-            // 3.
-            return self == movie
-        }
-        // 4.
-        Movie.save(favoriteMovies, forKey: Movie.favoritesKey)
+//    func removeFromFavorites() {
+//        // 1.
+//        var favoriteMovies = Movie.getMovies(forKey: Movie.favoritesKey)
+//        // 2.
+//        favoriteMovies.removeAll { movie in
+//            // 3.
+//            return self == movie
+//        }
+//        // 4.
+//        Movie.save(favoriteMovies, forKey: Movie.favoritesKey)
+//    }
+// MARK: - CodeAI Output
+        func removeFromFavorites() {
+    // 1.
+    var favoriteMovies = Movie.getMovies(forKey: Movie.favoritesKey)
+    // 2.
+    favoriteMovies.removeAll { movie in
+        // 3.
+        return self == movie
     }
+    // 4.
+    Movie.save(favoriteMovies, forKey: Movie.favoritesKey)
+}
 }

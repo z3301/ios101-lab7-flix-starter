@@ -40,7 +40,7 @@ class DetailViewController: UIViewController {
     
     
     var movie: Movie!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -57,15 +57,23 @@ class DetailViewController: UIViewController {
         // ------
 
         // 1.
-        let favorites = Movie.getMovies(forKey: Movie.favoritesKey)
-        // 2.
-        if favorites.contains(where: movie) {
-            // 3.
-            favoriteButton.isSelected = true
-        } else {
-            // 4.
-            favoriteButton.isSelected = false
-        }
+//        let favorites = Movie.getMovies(forKey: Movie.favoritesKey)
+//        // 2.
+//        if favorites.contains(where: movie) {
+//            // 3.
+//            favoriteButton.isSelected = true
+//        } else {
+//            // 4.
+//            favoriteButton.isSelected = false
+//        }
+// MARK: - CodeAI Output
+            let favorites = Movie.getMovies(forKey: Movie.favoritesKey)
+if favorites.contains(where: { $0 == movie }) {
+    favoriteButton.isSelected = true
+} else {
+    favoriteButton.isSelected = false
+}
+
 
         // MARK: Style views
         posterImageView.layer.cornerRadius = 20
